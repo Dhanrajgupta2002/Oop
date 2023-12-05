@@ -1,0 +1,141 @@
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Student {
+public:
+    int rollno;
+    string name;
+    string dob;
+
+    bool operator==(const Student &student1) {
+        return (rollno == student1.rollno);
+    }
+
+    bool operator<(const Student &student1) {
+        return (rollno < student1.rollno);
+    }
+
+    friend ostream& operator<<(ostream &out, const Student &);
+    friend istream& operator>>(istream &in, Student &);
+};
+
+ostream& operator<<(ostream &out, const Student &k) {
+    out << "\n\t\t" << k.rollno << "\t\t" << k.name << "\t\t" << k.dob;
+    return out;
+}
+
+istream& operator>>(istream &in, Student &k) {
+    cout << "\nEnter Roll No : ";
+    in >> k.rollno;
+    cout << "Enter Name : ";
+    in >> k.name;
+    cout << "Enter DOB : ";
+    in >> k.dob;
+    return in;
+}
+
+bool myfunc(const Student &k, const Student &i2) {
+    return (k.rollno < i2.rollno);
+}
+
+vector<Student> read() {
+    int n;
+    Student k;
+    vector<Student> j;
+    cout << "\nEnter total no. of students: ";
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        cin >> k;
+        j.push_back(k);
+    }
+    return j;
+}
+
+void printFunction(const Student &k) {
+    cout << k;
+}
+
+void print(const vector<Student> &j) {
+    cout << "\n\t\tROLL NO\t\tNAME\t\tDATE OF BIRTH";
+    for_each(j.begin(), j.end(), printFunction);
+}
+
+void insert(vector<Student> &j) {
+    Student k;
+    cin >> k;
+    j.push_back(k);
+}
+
+void deleteRecord(vector<Student> &j) {
+    int rollNo;
+    cout << "\nEnter Student Roll No To Delete: ";
+    cin >> rollNo;
+    auto it = find_if(j.begin(), j.end(), [rollNo](const Student &s) { return s.rollno == rollNo; });
+    if (it != j.end()) {
+        j.erase(it);
+    } else {
+        cout << "\nNot found";
+    }
+}
+
+void search(const vector<Student> &j) {
+    int rollNo;
+    cout << "\nEnter Student Roll No To Search: ";
+    cin >> rollNo;
+    auto it = find_if(j.begin(), j.end(), [rollNo](const Student &s) { return s.rollno == rollNo; });
+    if (it != j.end()) {
+        cout << "\n\n\t\tROLL NO\t\tNAME\t\tDATE OF BIRTH";
+        cout << *it;
+    } else {
+        cout << "\nNot found";
+    }
+}
+
+void sortRecords(vector<Student> &j) {
+    sort(j.begin(), j.end(), myfunc);
+}
+
+int main() {
+    vector<Student> j;
+    int op;
+    do {
+        cout << "\n\n\t\t------- MENU ---------";
+        cout << "\n\t\t1. Create";
+        cout << "\n\t\t2. Display";
+        cout << "\n\t\t3. Insert";
+        cout << "\n\t\t4. Delete";
+        cout << "\n\t\t5. Search";
+        cout << "\n\t\t6. Sort";
+        cout << "\n\t\t7. Quit";
+        cout << "\n\t\t--------------------------";
+        cout << "\n\t\tEnter your choice: ";
+        cin >> op;
+
+        switch (op) {
+            case 1:
+                j = read();
+                break;
+            case 2:
+                print(j);
+                break;
+            case 3:
+                insert(j);
+                break;
+            case 4:
+                deleteRecord(j);
+                break;
+            case 5:
+                search(j);
+                break;
+            case 6:
+                sortRecords(j);
+                print(j);
+                break;
+        }
+    } while (op != 7);
+
+    return 0;
+}
