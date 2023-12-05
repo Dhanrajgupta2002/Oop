@@ -1,0 +1,79 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student;
+
+class Data {
+public:
+    void getData(Student& student);
+};
+
+class Student {
+private:
+    string name;
+    int roll_no;
+    string class_name;
+    char division;
+    string dob;
+    string blood_group;
+    string contact_address;
+    string phone_no;
+    string driving_license;
+
+public:
+    Student() {
+        // Your existing constructor code remains the same
+    }
+
+    Student(Student& other) {
+        // Your existing copy constructor code remains the same
+    }
+
+    ~Student() {
+        cout << "Memory Deallocated!!!" << endl;
+    }
+
+    inline void display() {
+        // Your existing display function code remains the same
+    }
+
+    friend class Data;
+};
+
+void Data::getData(Student& student) {
+    cout << "Enter student Name: ";
+    cin >> student.name;
+
+    cout << "Enter student Roll No: ";
+    cin >> student.roll_no;
+
+    cout << "Enter student class name: ";
+    cin >> student.class_name;
+
+    cout << "Enter student date of birth: ";
+    cin >> student.dob;
+
+    cout << "Enter student blood group: ";
+    cin >> student.blood_group;
+
+    cout << "Enter student contact address: ";
+    cin >> student.contact_address;
+
+    cout << "Enter student phone number: ";
+    cin >> student.phone_no;
+
+    cout << "Enter student driving license number: ";
+    cin >> student.driving_license;
+}
+
+int main() {
+    Student student;
+    Data data;
+
+    data.getData(student);
+
+    student.display();
+
+    return 0;
+}
