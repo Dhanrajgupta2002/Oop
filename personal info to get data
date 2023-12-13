@@ -77,3 +77,125 @@ int main() {
 
     return 0;
 }
+
+
+//or
+
+/*
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student;
+
+class Data {
+public:
+    void getData(Student& student);
+};
+
+class Student {
+private:
+    string name;
+    string roll_no;
+    string class_name;
+    string division;
+    string dob;
+    string blood_group;
+    string contact_address;
+    string phone_no;
+    string driving_license;
+
+public:
+    Student() {
+         this->name= "";
+         this->roll_no= "";
+         this->class_name= "";
+         this->division= "";
+         this->dob= "";
+         this->blood_group= ""; 
+         this->contact_address="";
+         this->phone_no= "";
+         this->driving_license= "";
+    }
+
+    Student(Student& other) {
+         this->name= other.name;
+         this->roll_no= other.roll_no;
+         this->class_name= other.class_name;
+         this->division= other.division;
+         this->dob= other.dob;
+         this->blood_group= other.blood_group;
+         this->contact_address= other.contact_address;
+         this->phone_no= other.phone_no;
+         this->driving_license= other.driving_license;
+       
+    }
+
+    ~Student() {
+        cout << "Memory Deallocated!!!" << endl;
+    }
+    
+    inline void display() {
+        cout<<"\n\nStudent Details: \n";
+        cout<<"Name: "<<name<<endl;
+        cout<<"Roll no: "<<roll_no<<endl;
+        cout<<"Class Name: "<<class_name<<endl;
+        cout<<"Division: "<<division<<endl;
+        cout<<"Date of birth: "<<dob<<endl;
+        cout<<"Blood group: "<<blood_group<<endl;
+        cout<<"Contact adress: "<<contact_address<<endl;
+        cout<<"Phone no: "<<phone_no<<endl;
+        cout<<"Driving license: "<<driving_license<<endl;
+        
+    }
+
+    friend class Data;
+};
+
+void Data::getData(Student& student) {
+    cout << "Enter student Name: ";
+    cin >> student.name;
+
+    cout << "Enter student Roll No: ";
+    cin >> student.roll_no;
+
+    cout << "Enter student class name: ";
+    cin >> student.class_name;
+    
+    cout << "Enter student Division: ";
+    cin >> student.division;
+    
+    cout << "Enter student date of birth: ";
+    cin >> student.dob;
+
+    cout << "Enter student blood group: ";
+    cin >> student.blood_group;
+
+    cout << "Enter student contact address: ";
+    cin >> student.contact_address;
+
+    cout << "Enter student phone number: ";
+    cin >> student.phone_no;
+
+    cout << "Enter student driving license number: ";
+    cin >> student.driving_license;
+}
+
+int main() {
+    
+    try{
+        Student *student1 = new Student();
+        Data data1;
+        
+        data1.getData(*student1);
+        student1->display();
+       
+        delete student1;
+    }
+    catch (exception &e)
+    {
+        cerr<<e.what()<<'\n';
+    }
+ 
+}
+/*
