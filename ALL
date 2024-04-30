@@ -1,0 +1,717 @@
+Exp 1 : Implement a class Complex which represents the Complex Number
+data type. Implement the following
+1. Constructor (including a default constructor which creates the
+complex number 0+0i).
+2. Overload operator+ to add two complex numbers.
+3. Overload operator* to multiply two complex numbers.
+4. Overload operators << and >> to print and read Complex
+Numbers.
+
+
+#include <iostream>
+using namespace std;
+
+class Complex {
+private:
+    double real;
+    double img;
+
+public:
+    Complex() {
+        this->real = 0;
+        this->img = 0;
+    }
+
+    Complex(double real, double img) {
+        this->real = real;
+        this->img = img;
+    }
+
+    Complex operator+(const Complex& other) {
+        return Complex(real + other.real, img + other.img);
+    }
+
+    Complex operator*(const Complex& other) {
+        double res_real = (real * other.real) - (img * other.img);
+        double res_img = (real * other.img) + (img * other.real);
+        return Complex(res_real, res_img);
+    }
+
+    friend ostream& operator<<(ostream& out, const Complex& complex) {
+        out << complex.real;
+        if (complex.img >= 0) {
+            out << "+" << complex.img << "i";
+        } else {
+            out << "-" << -complex.img << "i";
+        }
+        return out;
+    }
+
+    friend istream& operator>>(istream& in, Complex& complex) {
+        cout << "Enter real part: ";
+        in >> complex.real;
+        cout << "Enter imaginary part: ";
+        in >> complex.img;
+        return in;
+    }
+};
+
+int main() {
+    Complex c1, c2;
+
+    cout << "Enter first complex number:\n";
+    cin >> c1;
+
+    cout << "Enter second complex number:\n";
+    cin >> c2;
+
+    Complex sum = c1 + c2;
+    Complex product = c1 * c2;
+
+    cout << "Sum: " << sum << endl;
+    cout << "Product: " << product << endl;
+
+    return 0;
+}
+
+//===============================================================================================================================================================
+
+Exp 2 : Develop a program in C++ to create a database of student’s
+information system containing the following information: Name, Roll
+number, Class, Division, Date of Birth, Blood group, Contact
+address, Telephone number, Driving license no. and other. Construct
+the database with suitable member functions. Make use of
+constructor, default constructor, copy constructor, destructor, static
+member functions, friend class, this pointer, inline code and dynamic
+memory allocation operators-new and delete as well as exception
+handling.
+
+
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student;
+
+class Data {
+public:
+    void getData(Student& student);
+};
+
+class Student {
+private:
+    string name;
+    int roll_no;
+    string class_name;
+    char division;
+    string dob;
+    string blood_group;
+    string contact_address;
+    string phone_no;
+    string driving_license;
+
+public:
+    Student() {
+        // Your existing constructor code remains the same
+    }
+
+    Student(Student& other) {
+        // Your existing copy constructor code remains the same
+    }
+
+    ~Student() {
+        cout << "Memory Deallocated!!!" << endl;
+    }
+
+    inline void display() {
+        // Your existing display function code remains the same
+    }
+
+    friend class Data;
+};
+
+void Data::getData(Student& student) {
+    cout << "Enter student Name: ";
+    cin >> student.name;
+
+    cout << "Enter student Roll No: ";
+    cin >> student.roll_no;
+
+    cout << "Enter student class name: ";
+    cin >> student.class_name;
+
+    cout << "Enter student date of birth: ";
+    cin >> student.dob;
+
+    cout << "Enter student blood group: ";
+    cin >> student.blood_group;
+
+    cout << "Enter student contact address: ";
+    cin >> student.contact_address;
+
+    cout << "Enter student phone number: ";
+    cin >> student.phone_no;
+
+    cout << "Enter student driving license number: ";
+    cin >> student.driving_license;
+}
+
+int main() {
+    Student student;
+    Data data;
+
+    data.getData(student);
+
+    student.display();
+
+    return 0;
+}
+
+
+//or
+
+/*
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student;
+
+class Data {
+public:
+    void getData(Student& student);
+};
+
+class Student {
+private:
+    string name;
+    string roll_no;
+    string class_name;
+    string division;
+    string dob;
+    string blood_group;
+    string contact_address;
+    string phone_no;
+    string driving_license;
+
+public:
+    Student() {
+         this->name= "";
+         this->roll_no= "";
+         this->class_name= "";
+         this->division= "";
+         this->dob= "";
+         this->blood_group= ""; 
+         this->contact_address="";
+         this->phone_no= "";
+         this->driving_license= "";
+    }
+
+    Student(Student& other) {
+         this->name= other.name;
+         this->roll_no= other.roll_no;
+         this->class_name= other.class_name;
+         this->division= other.division;
+         this->dob= other.dob;
+         this->blood_group= other.blood_group;
+         this->contact_address= other.contact_address;
+         this->phone_no= other.phone_no;
+         this->driving_license= other.driving_license;
+       
+    }
+
+    ~Student() {
+        cout << "Memory Deallocated!!!" << endl;
+    }
+    
+    inline void display() {
+        cout<<"\n\nStudent Details: \n";
+        cout<<"Name: "<<name<<endl;
+        cout<<"Roll no: "<<roll_no<<endl;
+        cout<<"Class Name: "<<class_name<<endl;
+        cout<<"Division: "<<division<<endl;
+        cout<<"Date of birth: "<<dob<<endl;
+        cout<<"Blood group: "<<blood_group<<endl;
+        cout<<"Contact adress: "<<contact_address<<endl;
+        cout<<"Phone no: "<<phone_no<<endl;
+        cout<<"Driving license: "<<driving_license<<endl;
+        
+    }
+
+    friend class Data;
+};
+
+void Data::getData(Student& student) {
+    cout << "Enter student Name: ";
+    cin >> student.name;
+
+    cout << "Enter student Roll No: ";
+    cin >> student.roll_no;
+
+    cout << "Enter student class name: ";
+    cin >> student.class_name;
+    
+    cout << "Enter student Division: ";
+    cin >> student.division;
+    
+    cout << "Enter student date of birth: ";
+    cin >> student.dob;
+
+    cout << "Enter student blood group: ";
+    cin >> student.blood_group;
+
+    cout << "Enter student contact address: ";
+    cin >> student.contact_address;
+
+    cout << "Enter student phone number: ";
+    cin >> student.phone_no;
+
+    cout << "Enter student driving license number: ";
+    cin >> student.driving_license;
+}
+
+int main() {
+    
+    try{
+        Student *student1 = new Student();
+        Data data1;
+        
+        data1.getData(*student1);
+        student1->display();
+       
+        delete student1;
+    }
+    catch (exception &e)
+    {
+        cerr<<e.what()<<'\n';
+    }
+ 
+}
+/*
+
+
+//================================================================================================================================
+
+Exp 3 :Imagine a publishing company which does marketing for book and
+audio cassette versions. Create a class publication that stores the title
+(a string) and price (type float) of publications. From this class derive
+two classes: book which adds a page count (type int) and tape which
+adds a playing time in minutes (type float).
+Write a program that instantiates the book and tape class, allows user
+to enter data and displays the data members. If an exception is
+caught, replace all the data member values with zero values.
+
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Publication {
+private:
+    string title;
+    float price;
+
+public:
+    Publication() {
+        this->title = "";
+        this->price = 0.0;
+    }
+
+    void getData() {
+        cout << "Enter title: ";
+        cin.ignore(); // Ignore newline character in buffer
+        getline(cin, title);
+        cout << "Enter price: ";
+        cin >> price;
+    }
+
+    void display() {
+        cout << "\n";
+        cout << "Title: " << title << endl;
+        cout << "Price: Rs." << price << endl;
+    }
+};
+
+class Book : public Publication {
+private:
+    int page_count;
+
+public:
+    Book() {
+        this->page_count = 0;
+    }
+
+    void getData() {
+        Publication::getData();
+        cout << "Enter page count: ";
+        cin >> page_count;
+    }
+
+    void display() {
+        Publication::display();
+        cout << "Page Count: " << page_count << endl;
+        cout << "\n";
+    }
+};
+
+class Tape : public Publication {
+private:
+    float time;
+
+public:
+    Tape() {
+        this->time = 0.0;
+    }
+
+    void getData() {
+        Publication::getData();
+        cout << "Enter time: ";
+        cin >> time;
+    }
+
+    void display() {
+        Publication::display();
+        cout << "Time: " << time << endl;
+        cout << "\n";
+    }
+};
+
+int main() {
+    Book book;
+    Tape tape;
+
+    try {
+        cout << "Enter book details: \n";
+        book.getData();
+
+        cout << "Enter tape details: \n";
+        tape.getData();
+
+        cout << "Book details: \n";
+        book.display();
+
+        cout << "Tape details: \n";
+        tape.display();
+    } catch (const exception& e) {
+        cerr << e.what() << '\n';
+    }
+
+    return 0;
+}
+
+/=====================================================================================================
+
+Exp 4 : Write a C++ program that creates an output file, writes information to
+it, closes the file, open it again as an input file and read the
+information from the file.
+
+
+
+
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+int main() {
+    ofstream outFile("output.txt");
+
+    if (!outFile.is_open()) {
+        cerr << "Error opening the output file." << endl;
+        return 1;
+    }
+
+    outFile << "Hello, Second Year Students" << endl;
+    outFile << "Welcome to I2IT" << endl;
+    outFile << "We are writing a file operation program." << endl;
+    outFile << "Let's Begin........" << endl;
+    outFile.close();
+
+    ifstream inFile("output.txt");
+
+    if (!inFile.is_open()) {
+        cerr << "Error opening the input file." << endl;
+        return 1;
+    }
+
+    string line;
+
+    cout << "Contents of the input file:" << endl;
+    while (getline(inFile, line)) {
+        cout << line << endl;
+    }
+
+    inFile.close();
+
+    return 0;
+}
+
+/====================================================================================================================================
+
+Ex 5 : Write a function template for selection sort that inputs, sorts and
+outputs an integer array and a float array.
+
+
+
+
+#include <iostream>
+using namespace std;
+
+template<typename T>
+void selectionSort(T arr[], int size) {
+    for (int i = 0; i < size - 1; ++i) {
+        int minIndex = i;
+        for (int j = i + 1; j < size; ++j) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+        T temp = arr[i];
+        arr[i] = arr[minIndex];
+        arr[minIndex] = temp;
+    }
+}
+
+int main() {
+    int intArraySize, floatArraySize;
+
+    cout << "Enter the size of the integer array: ";
+    cin >> intArraySize;
+
+    cout << "Enter the size of the float array: ";
+    cin >> floatArraySize;
+
+    int* intArray = new int[intArraySize];
+    float* floatArray = new float[floatArraySize];
+
+    cout << "Enter integer numbers to sort: ";
+    for (int i = 0; i < intArraySize; ++i) {
+        cin >> intArray[i];
+    }
+
+    cout << "Enter floating numbers to sort: ";
+    for (int i = 0; i < floatArraySize; ++i) {
+        cin >> floatArray[i];
+    }
+
+    selectionSort(intArray, intArraySize);
+    selectionSort(floatArray, floatArraySize);
+
+    cout << "Sorted Integer Array: \n";
+    for (int i = 0; i < intArraySize; i++) {
+        cout << intArray[i] << " ";
+    }
+
+    cout << "\nSorted Float Array:\n";
+    for (int i = 0; i < floatArraySize; i++) {
+        cout << floatArray[i] << " ";
+    }
+
+    delete[] intArray;
+    delete[] floatArray;
+
+    return 0;
+}
+
+//===================================================================================================
+
+Exp 6 : Write C++ program using STL for sorting and searching user defined
+records such as personal records (Name, DOB, Telephone number etc)
+using vector container.
+0R
+
+Write C++ program using STL for sorting and searching user defined
+records such as Item records (Item code, name, cost, quantity etc)
+using vector container.
+
+
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Student {
+public:
+    int rollno;
+    string name;
+    string dob;
+
+    bool operator==(const Student &student1) {
+        return (rollno == student1.rollno);
+    }
+
+    bool operator<(const Student &student1) {
+        return (rollno < student1.rollno);
+    }
+
+    friend ostream& operator<<(ostream &out, const Student &);
+    friend istream& operator>>(istream &in, Student &);
+};
+
+ostream& operator<<(ostream &out, const Student &k) {
+    out << "\n\t\t" << k.rollno << "\t\t" << k.name << "\t\t" << k.dob;
+    return out;
+}
+
+istream& operator>>(istream &in, Student &k) {
+    cout << "\nEnter Roll No : ";
+    in >> k.rollno;
+    cout << "Enter Name : ";
+    in >> k.name;
+    cout << "Enter DOB : ";
+    in >> k.dob;
+    return in;
+}
+
+bool myfunc(const Student &k, const Student &i2) {
+    return (k.rollno < i2.rollno);
+}
+
+vector<Student> read() {
+    int n;
+    Student k;
+    vector<Student> j;
+    cout << "\nEnter total no. of students: ";
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        cin >> k;
+        j.push_back(k);
+    }
+    return j;
+}
+
+void printFunction(const Student &k) {
+    cout << k;
+}
+
+void print(const vector<Student> &j) {
+    cout << "\n\t\tROLL NO\t\tNAME\t\tDATE OF BIRTH";
+    for_each(j.begin(), j.end(), printFunction);
+}
+
+void insert(vector<Student> &j) {
+    Student k;
+    cin >> k;
+    j.push_back(k);
+}
+
+void deleteRecord(vector<Student> &j) {
+    int rollNo;
+    cout << "\nEnter Student Roll No To Delete: ";
+    cin >> rollNo;
+    auto it = find_if(j.begin(), j.end(), [rollNo](const Student &s) { return s.rollno == rollNo; });
+    if (it != j.end()) {
+        j.erase(it);
+    } else {
+        cout << "\nNot found";
+    }
+}
+
+void search(const vector<Student> &j) {
+    int rollNo;
+    cout << "\nEnter Student Roll No To Search: ";
+    cin >> rollNo;
+    auto it = find_if(j.begin(), j.end(), [rollNo](const Student &s) { return s.rollno == rollNo; });
+    if (it != j.end()) {
+        cout << "\n\n\t\tROLL NO\t\tNAME\t\tDATE OF BIRTH";
+        cout << *it;
+    } else {
+        cout << "\nNot found";
+    }
+}
+
+void sortRecords(vector<Student> &j) {
+    sort(j.begin(), j.end(), myfunc);
+}
+
+int main() {
+    vector<Student> j;
+    int op;
+    do {
+        cout << "\n\n\t\t------- MENU ---------";
+        cout << "\n\t\t1. Create";
+        cout << "\n\t\t2. Display";
+        cout << "\n\t\t3. Insert";
+        cout << "\n\t\t4. Delete";
+        cout << "\n\t\t5. Search";
+        cout << "\n\t\t6. Sort";
+        cout << "\n\t\t7. Quit";
+        cout << "\n\t\t--------------------------";
+        cout << "\n\t\tEnter your choice: ";
+        cin >> op;
+
+        switch (op) {
+            case 1:
+                j = read();
+                break;
+            case 2:
+                print(j);
+                break;
+            case 3:
+                insert(j);
+                break;
+            case 4:
+                deleteRecord(j);
+                break;
+            case 5:
+                search(j);
+                break;
+            case 6:
+                sortRecords(j);
+                print(j);
+                break;
+        }
+    } while (op != 7);
+
+    return 0;
+}
+
+//====================================================================
+
+Exp 7 : Write a program in C++ to use map associative container. The keys
+will be the names of states and the values will be the populations of
+the states. When the program runs, the user is prompted to type the
+name of a state. The program then looks in the map, using the state
+name as an index and returns the population of the state.
+
+
+
+#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+
+int main() {
+    typedef map<string, int> mapType;
+    mapType populationMap;
+
+    // Insert elements into the Map (in random order)
+    populationMap.insert(pair<string, int>("Maharashtra", 7026357));
+    populationMap.insert(pair<string, int>("Rajasthan", 6578936));
+    populationMap.insert(pair<string, int>("Karnataka", 6678993));
+    populationMap.insert(pair<string, int>("Punjab", 5789032));
+    populationMap.insert(pair<string, int>("West Bengal", 6676291));
+
+    // Iterator for map
+    mapType::iterator iter;
+
+    cout << "========Population of states in India==========" << endl;
+    cout << "\nSize of populationMap: " << populationMap.size() << endl;
+
+    string state_name;
+    cout << "\nEnter name of the state: ";
+    cin >> state_name;
+
+    iter = populationMap.find(state_name); // Find record in Map
+    if (iter != populationMap.end()) {
+        cout << state_name << "'s population is " << iter->second << endl;
+    } else {
+        cout << "Key is not in populationMap" << endl;
+    }
+
+    populationMap.clear();
+    return 0;
+}
+
